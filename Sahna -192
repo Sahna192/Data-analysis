@@ -1,0 +1,86 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+import seaborn as sns
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler,PolynomialFeatures
+from sklearn.linear_model import Ridge
+from sklearn.model_selection import cross_val_score
+from sklearn.model_selection import train_test_split
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+
+%matplotlib inline
+
+#@title
+%%HTML
+<h3> Question1</h3><br><font=3>Display the data types of each column using the attribute dtype, then take a screenshot and submit it, include your cod0e in 
+Question1
+ print(df.dtypes)
+#@title
+%%HTML
+<h3>Question 2</h3><br>
+<font=3>Drop the columns "id" and "Unnamed: 0" from axis 1 using the method drop(), then use the method describe() to obtain a statistical summary of the data. Take a 
+df.drop(['id','Unnamed: 0'],axis=1,inplace=True)
+#@title
+%%HTML
+<h3>Question 3</h3>
+<font=3>Use the method value_counts to count the number of houses with unique floor values, use the method .to_frame() to convert it to a dataframe.</font>
+sr = df['floors'].value_counts().to_frame()
+print(sr)
+#@title
+%%HTML
+<h3>Question 4</h3>
+<br>
+<font=3>Use the function boxplot in the seaborn library to determine whether houses with a waterfront view or without a waterfront view have more price outliers </font>
+sns.boxplot(df['waterfront'],df['price'])
+#@title
+%%HTML
+<h3>Question 5</h3>
+<br>
+<font=3>Use the function  regplot in the seaborn library to determine if the feature sqft_above is negatively or positively correlated with price.</font
+plt.ylim(0,)
+#@title
+%%HTML
+<h3>Question 6</h3>
+<br>
+<font=3>Fit a linear regression model to predict the 'price' using the feature 'sqft_living' then calculate the R^2. Take a screenshot of your code and the va
+Y = df['price']
+lm = LinearRegression()
+lm
+lm.fit(X,Y)
+lm.score(X, Y)
+#@title
+%%HTML
+<h3>Question 7</h3>
+<br>
+<font=3>Fit a linear regression model to predict the 'price' using the list of features:</font>
+features =["floors", "waterfront","lat" ,"bedrooms" ,"sqft_basement" ,"view" ,"bathrooms","sqft_living15","sqft_above","grade","sqft_living"]     
+X = df[["floors", "waterfront","lat" ,"bedrooms" ,"sqft_basement" ,"view" ,"bathrooms","sqft_living15","sqft_above","grade","sqft_living"]]
+Y = df['price']
+lm2 = LinearRegression()
+lm2
+lm2.fit(X,Y)
+lm2.score(X, Y)
+@title
+%%HTML
+<h3>Question 8</h3>
+<br>
+<font=3>Use the list to create a pipeline object, predict the 'price', fit the object using the features in the list  features , then fit the model and calculate t
+pipe=Pipeline(Input)
+pipe.fit(X,Y)
+pipe.score(X,Y)
+Rig = Ridge(alpha=0.1)
+Rig.fit(x_train,y_train)
+Rig.score(x_test,y_test)
+#@title
+%%HTML
+<h3>Question 10</h3>
+<br>
+<font=3>Perform a second order polynomial transform on both the training data and testing data. Create and fit a Ridge regression object using the training 
+pf = PolynomialFeatures(degree=2)
+x_train_pf = pf.fit_transform(x_train)
+x_test_pf = pf.fit_transform(x_test)
+rig = Ridge(alpha=0.1)
+rig.fit(x_train_pf,y_train)
+rig.score(x_test_pf,y_test)
